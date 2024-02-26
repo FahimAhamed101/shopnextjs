@@ -17,8 +17,7 @@ model Product{
   title String 
   description String 
   category String
-  link String
-  github String
+ 
   images String 
 
   
