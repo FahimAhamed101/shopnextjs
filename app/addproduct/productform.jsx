@@ -6,9 +6,12 @@ import Size from '../components/Size'
 import Color from '../components/Color'
 import Para from '../components/Para'
 import ImageUpload from '../components/ImageUpload'
-
+import { signIn, signOut,useSession } from 'next-auth/react'
+import Navbar from '../components/Navbar'
 const Productform = () => {
-
+    const {data:session} = useSession()
+    const id = session?.user.id
+    console.log(id)
     const router = useRouter()
     const [formData, setFormData] = useState({
         title: '',
@@ -23,6 +26,7 @@ const Productform = () => {
         inventory: 0,
         color: '#fe345e',
         price: 0,
+        userId:id,
         images: '',
         store: ''
     })
@@ -54,7 +58,8 @@ const Productform = () => {
         setFormData((prevFormData) => ({
             ...prevFormData, // Preserve all existing fields
             images: stringimages, // Update images
-            description: Description, // Update description
+            description: Description,
+            userId:id // Update description
         }));
     };
     useEffect(() => {
@@ -62,6 +67,7 @@ const Productform = () => {
             ...prevFormData,
             description: Description,
             images: imageUrls.toString(),
+            userId:id
         }))
     }, [imageUrls, Description])
 
@@ -70,6 +76,7 @@ const Productform = () => {
         try {
             const response = await axios.post('/api/addproduct', formData)
             router.push('/')
+            console.log(formData)
             console.log(response)
         } catch (error) {
             console.log(error)
@@ -78,7 +85,9 @@ const Productform = () => {
 
     return (
         <div className='px-5 max-w-[1280px] mx-auto mb-10'>
-
+  <div>
+            <Navbar/>
+        </div>
             <h1 className='text-3xl font-semibold py-6'>Add your Product n SEINE</h1>
             <div className='text-black mt-4'>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-5'>
