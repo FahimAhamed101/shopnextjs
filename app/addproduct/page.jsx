@@ -1,9 +1,8 @@
 import React from 'react'
 import Productform from './productform'
 
-type Props = {}
 
-const page = (props: Props) => {
+const page = () => {
   return (
     <Productform/>
   )

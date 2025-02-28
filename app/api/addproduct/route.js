@@ -1,16 +1,20 @@
 import prisma from "@/app/prismadb"
 import { NextResponse } from "next/server"
 
-export async function POST(request: Request){
+export async function POST(request){
     const body = await request.json()
     const {
         title,
         description,
-        category, github,
-        link,
+        category,
+        style,
+        size,
+        inventory,
+        color,
+        price,
         images,
         userId,
-    
+        store
     } = body
 
     try{
@@ -19,22 +23,25 @@ export async function POST(request: Request){
                 title,
                 description,
                 category,
-              github,
-                link,
+                style,
+                size,
+                inventory,
+                color,
+                price,
                 images,
                 userId,
-            
+                store
             }
         })
         return NextResponse.json(product)
     }
     catch(error){
-        console.log('Error creating the project', error)
+        console.log('Error creating the product', error)
         return NextResponse.error()
     }
 }
 
-export async function DELETE(req:Request){
+export async function DELETE(req){
     const body = await req.json()
     const {productId, userId} = body
 
@@ -47,7 +54,7 @@ export async function DELETE(req:Request){
         })
         return NextResponse.json(deletedProduct)
     }catch(error){
-        console.error("Error deleting project", error)
+        console.error("Error deleting product", error)
         return NextResponse.error()
     }
 }

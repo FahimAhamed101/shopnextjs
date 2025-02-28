@@ -1,0 +1,10 @@
+model Product{
+  id String @id @default(auto()) @map("_id") @db.ObjectId 
+  title String 
+  description String 
+  category String
+ 
+  images String 
+
+  
+}
